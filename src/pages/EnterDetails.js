@@ -9,68 +9,118 @@ function EnterDetails() {
     const [pocName, setPocName] = useState('')
     const [pocScript, setPocScript] = useState('')
     const [pocImage, setPocImage] = useState(null)
+    const [file, setFile] = useState(null);
+    const [base64URL, setBase64URL] = useState("");
+
+    const getBase64 = (file) => {
+        return new Promise((resolve) => {
+            let baseURL = "";
+            let reader = new FileReader();
+
+            reader.readAsDataURL(file);
+
+            reader.onload = () => {
+                baseURL = reader.result;
+                resolve(baseURL);
+            };
+        });
+    };
+
+    const handleFileInputChange = (e) => {
+        const selectedFile = e.target.files[0];
+
+        getBase64(selectedFile)
+            .then((result) => {
+                selectedFile["base64"] = result;
+                setFile(selectedFile);
+                console.log(result)
+                setBase64URL(result);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+
     const onChangeName = (e) => {
         setPocName(e.target.value)
     }
-    const onChangePocScript=(e)=>{
+    const onChangePocScript = (e) => {
         setPocScript(e.target.value)
     }
     const onChangepocImage = (e) => {
         setPocImage(e.target.value)
-      };
-    
-      const onButtonClick = ()=>{
-        sessionStorage.setItem('pocName',pocName)
-        sessionStorage.setItem('Image',pocImage)
-        sessionStorage.setItem('script',pocScript)
-        router.push('/Deploy')
+    };
 
-      }
+    const onButtonClick = () => {
+        sessionStorage.setItem('pocName', pocName)
+        sessionStorage.setItem('Image', base64URL)
+        sessionStorage.setItem('script', pocScript)
+        setTimeout(() => {
+
+            router.push('/Deploy')
+        }, 4000);
+
+
+    }
     return (
-        <div style={{ background: 'white', width: '100vw', gap: '20px', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', color: 'black' }}>
-            <div >
-                <Box
-                    component="form"
-                    sx={{
-                        '& > :not(style)': { m: 1, width: '35ch' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <TextField id="outlined-basic" value={pocName} onChange={(e)=>onChangeName(e)} label="POC Client Name" variant="outlined" />
 
-                </Box>
+        <div className='MainBox'>
+            <div className='boxOne'>
+                <img style={{ width: '500px' }} src="https://img.freepik.com/free-vector/chat-bot-concept-illustration_114360-5412.jpg?t=st=1709295922~exp=1709299522~hmac=aaf7fa3a555535b4cd1c0b334f54727d2ddc173e67eff2aea2a019c727073128&w=1060" />
             </div>
-            <div>
-                <Box
-                    component="form"
-                    sx={{
-                        '& > :not(style)': { m: 1, width: '35ch' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <TextField id="outlined-basic" value={pocScript} onChange={(e)=>onChangePocScript(e)}  label="Script" variant="outlined" />
-
-                </Box>
-            </div>
-            <div>
-                <input type="file" value={pocImage} onChange={(e)=>onChangepocImage(e)}  />
-            </div>
-            <div>
-                <button onClick={()=>onButtonClick()}>
-                    Sign up
-                    <div class="arrow-wrapper">
-                        <div class="arrow"></div>
-
+            <div className='box2'>
+                <div style={{ background: 'white',  gap: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', color: 'black' }}>
+                    <div style={{display:'flex',justifyContent:'center',textAlign:'center'}}>
+                    <h4>Please provide details and test the seamless chatbot with the new interface.🤖</h4>
+                
                     </div>
-                </button>
+                    <div >
+                        <Box
+                            component="form"
+                            sx={{
+                                '& > :not(style)': { m: 1, width: '35ch' },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                        >
+                            <TextField id="outlined-basic" required value={pocName} onChange={(e) => onChangeName(e)} label="POC Client Name" variant="outlined" />
+
+                        </Box>
+                    </div>
+                    <div>
+                        <Box
+                            component="form"
+                            sx={{
+                                '& > :not(style)': { m: 1, width: '35ch' },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                        >
+                            <TextField id="outlined-basic" required value={pocScript} onChange={(e) => onChangePocScript(e)} label="Script" variant="outlined" />
+
+                        </Box>
+                    </div>
+                    <div>
+                        <input type="file" value={pocImage} required onChange={handleFileInputChange} />
+                    </div>
+                    <div>
+                        <button onClick={() => onButtonClick()}>
+                            Sign up
+                            <div class="arrow-wrapper">
+                                <div class="arrow"></div>
+
+                            </div>
+                        </button>
+                    </div>
+                    <img style={{ width: '50px' }} src={pocImage} />
+                    <h4>{pocImage}</h4>
+
+
+                </div>
             </div>
-            <img style={{width:'50px'}} src={pocImage}/>
-            <h4>{pocImage}</h4>
-           
-      
         </div>
+
     )
 }
 
