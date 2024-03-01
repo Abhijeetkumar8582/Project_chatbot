@@ -74,7 +74,8 @@ button:hover .arrow:before {
   background-color: white;
 }
 .box2{
-  /* background-color: azure; */
+  background-color: blue;
+  
   width: 50%;
   display: flex;
   justify-content: center;

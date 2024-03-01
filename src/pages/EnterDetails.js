@@ -33,7 +33,7 @@ function EnterDetails() {
             .then((result) => {
                 selectedFile["base64"] = result;
                 setFile(selectedFile);
-                console.log(result)
+                // console.log(result)
                 setBase64URL(result);
             })
             .catch((err) => {
@@ -70,7 +70,7 @@ function EnterDetails() {
                 <img style={{ width: '500px' }} src="https://img.freepik.com/free-vector/chat-bot-concept-illustration_114360-5412.jpg?t=st=1709295922~exp=1709299522~hmac=aaf7fa3a555535b4cd1c0b334f54727d2ddc173e67eff2aea2a019c727073128&w=1060" />
             </div>
             <div className='box2'>
-                <div style={{ background: 'white',  gap: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', color: 'black' }}>
+                <div style={{ background: 'white',  gap: '20px',    width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', color: 'black' }}>
                     <div style={{display:'flex',justifyContent:'center',textAlign:'center'}}>
                     <h4>Please provide details and test the seamless chatbot with the new interface.🤖</h4>
                 
@@ -107,8 +107,8 @@ function EnterDetails() {
                     <div>
                         <button onClick={() => onButtonClick()}>
                             Sign up
-                            <div class="arrow-wrapper">
-                                <div class="arrow"></div>
+                            <div className="arrow-wrapper">
+                                <div className="arrow"></div>
 
                             </div>
                         </button>
@@ -119,6 +119,7 @@ function EnterDetails() {
 
                 </div>
             </div>
+            
         </div>
 
     )
