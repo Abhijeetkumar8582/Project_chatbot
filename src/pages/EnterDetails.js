@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import {userScript} from './Redux/Action/index'
+import {userScript} from '../Redux/Action/index'
 import Deploy from './Deploy';
 // Script
 import { useDispatch, useSelector } from 'react-redux';
