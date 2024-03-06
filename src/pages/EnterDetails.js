@@ -2,10 +2,14 @@ import React, { use, useState } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useRouter } from 'next/router';
-
-
+import Script from 'next/script';
+import {userScript} from './Redux/Action/index'
+import Deploy from './Deploy';
+// Script
+import { useDispatch, useSelector } from 'react-redux';
 function EnterDetails() {
     const router = useRouter()
+    const dispatch = useDispatch();
     const [pocName, setPocName] = useState('')
     const [pocScript, setPocScript] = useState('')
     const [pocImage, setPocImage] = useState(null)
@@ -25,7 +29,7 @@ function EnterDetails() {
             };
         });
     };
-
+    const script = useSelector(state => state.scriptReducer);
     const handleFileInputChange = (e) => {
         const selectedFile = e.target.files[0];
 
@@ -44,23 +48,23 @@ function EnterDetails() {
 
     const onChangeName = (e) => {
         setPocName(e.target.value)
+        dispatch(userScript(e.target.value))
     }
     const onChangePocScript = (e) => {
         setPocScript(e.target.value)
+
     }
     const onChangepocImage = (e) => {
         setPocImage(e.target.value)
     };
 
     const onButtonClick = () => {
+        // const updatedPocScript = pocScript.replace(/&amp;/g, '&');
         sessionStorage.setItem('pocName', pocName)
         sessionStorage.setItem('Image', base64URL)
-        sessionStorage.setItem('script', pocScript)
-        setTimeout(() => {
+        sessionStorage.setItem('script',pocScript )
 
-            router.push('/Deploy')
-        }, 4000);
-
+        router.push('Deploy')
 
     }
     return (
@@ -70,10 +74,10 @@ function EnterDetails() {
                 <img style={{ width: '500px' }} src="https://img.freepik.com/free-vector/chat-bot-concept-illustration_114360-5412.jpg?t=st=1709295922~exp=1709299522~hmac=aaf7fa3a555535b4cd1c0b334f54727d2ddc173e67eff2aea2a019c727073128&w=1060" />
             </div>
             <div className='box2'>
-                <div style={{ background: 'white',  gap: '20px',    width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', color: 'black' }}>
-                    <div style={{display:'flex',justifyContent:'center',textAlign:'center'}}>
-                    <h4>Please provide details and test the seamless chatbot with the new interface.🤖</h4>
-                
+                <div style={{ background: 'white', gap: '20px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', color: 'black' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
+                        <h4>Please provide details and test the seamless chatbot with the new interface.🤖</h4>
+
                     </div>
                     <div >
                         <Box
@@ -119,7 +123,7 @@ function EnterDetails() {
 
                 </div>
             </div>
-            
+
         </div>
 
     )

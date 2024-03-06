@@ -1,17 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-function Test() {
+function Deploy() {
+    const [pocScript, setPocScript] = useState("https://deepesh2.community.druidplatform.com/v2/druid_webchat_v2_load.js?botId=59990c83-83de-4e36-0d29-08dc390f6827&baseUrl=https%3A%2F%2Fdruidapi.comm.eu.druidplatform.com");
+    const [pocImage,setPocImage]=useState(null)
+
     useEffect(() => {
-        const scriptId = 'druid_webchat_v2_js'; // Replace 'your-script-id' with the ID of your existing script element
-        const existingScript = document.getElementById(scriptId);
-        if (existingScript) {
-            existingScript.src = "https://deepesh2.community.druidplatform.com/v2/druid_webchat_v2_load.js?botId=59990c83-83de-4e36-0d29-08dc390f6827&amp;baseUrl=https%3A%2F%2Fdruidapi.comm.eu.druidplatform.com";
-        } else {
-            console.error("Script element not found!");
-        }
+        setPocScript(sessionStorage.getItem('script'))
+        setPocImage(sessionStorage.getItem('Image'))
+        // You can do any necessary actions in this useEffect hook if needed
     }, []);
 
-    return null; // Return null or any other placeholder while the script is loading
+    return (
+        <div style={{
+            background: `url(${pocImage}) no-repeat center center`,
+            backgroundSize: 'cover',
+            width: '100vw',
+            height: '100vh'
+        }}>
+            <script defer type="text/javascript" src={pocScript}></script>
+        </div>
+    );
 }
 
-export default Test;
+export default Deploy;

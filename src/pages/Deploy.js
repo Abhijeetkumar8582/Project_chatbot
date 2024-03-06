@@ -1,43 +1,33 @@
-import Head from 'next/head';
-import Script from 'next/script';
-import Test from './test';
-import React, { useEffect, useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 function Deploy() {
-    const [pocImage, getPocImage] = useState(null);
-    const [pocTitle, setPocTitle] = useState("");
-    const [pocScript, setPocScript] = useState("");
-
-    // useEffect(() => {
-    //     const image = sessionStorage.getItem('Image');
-    //     const title = sessionStorage.getItem('pocName');
-    //     const script = sessionStorage.getItem('script');
-
-    //     console.log("Script URL:", script); // Log the script URL
-    //     getPocImage(image);
-    //     setPocTitle(title);
-    //     setPocScript(script);
-    // }, []);
-
-    if (!pocImage) {
-        return null; // Render nothing until pocImage is loaded
-    }
+    // const userScript = sessionStorage.getItem('script')
+    // const [pocScript, setPocScript] = useState(userScript)
+    const [pocImage, setPocImage] = useState(null);
+    const script = useSelector(state => state.scriptReducer);
+    useEffect(() => {
+        // const script = sessionStorage.getItem('script');
+        const image = sessionStorage.getItem('Image');
+        console.log(script)
+        setPocImage(image);
+        // if (script && image) {
+        //     setPocScript(script);
+        //     setPocImage(image);
+        // }
+    }, []); // Empty dependency array to run once on component mount
 
     return (
-        <div style={{height:'100vh',height:'100vh'}}>
-            <Head>
-                {/* <title>{pocTitle}</title> */}
-            </Head>
-            {/* <img src={pocImage} style={{ width: '100%',height:'100%' }} /> */}
-            {/* <h4>vsd</h4> */}
-            {/* <Test/> */}
-            <script defer type="text/javascript" src="https://deepesh2.community.druidplatform.com/v2/druid_webchat_v2_load.js?botId=59990c83-83de-4e36-0d29-08dc390f6827&amp;baseUrl=https%3A%2F%2Fdruidapi.comm.eu.druidplatform.com">
-        </script>
+        <div style={{
+            backgroundImage: `url(${pocImage})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+            width: '100vw',
+            height: '100vh'
+        }}>
+         <script defer type="text/javascript" src={script}></script>
         </div>
-        
     );
 }
 
-
 export default Deploy;
-

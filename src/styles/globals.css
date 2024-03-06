@@ -1,4 +1,6 @@
-
+body {
+  margin: 0;
+}
 button {
   --primary-color: #645bff;
   --secondary-color: #fff;
@@ -58,7 +60,7 @@ button:hover .arrow {
 button:hover .arrow:before {
   right: 0;
 }
-.MainBox{
+.MainBox {
   /* width: 100vw; */
   margin: 60px;
   display: flex;
@@ -68,14 +70,14 @@ button:hover .arrow:before {
   transition: all 0.5s ease 0s;
   /* box-shadow: 0 10px 10px 0 #5147dd; */
 }
-.boxOne{
+.boxOne {
   width: 50%;
   padding: 30px;
   background-color: white;
 }
-.box2{
+.box2 {
   background-color: blue;
-  
+
   width: 50%;
   display: flex;
   justify-content: center;
