@@ -48,21 +48,21 @@ function EnterDetails() {
 
     const onChangeName = (e) => {
         setPocName(e.target.value)
-        dispatch(userScript(e.target.value))
+      
     }
     const onChangePocScript = (e) => {
         setPocScript(e.target.value)
 
     }
-    const onChangepocImage = (e) => {
-        setPocImage(e.target.value)
-    };
-
     const onButtonClick = () => {
-        // const updatedPocScript = pocScript.replace(/&amp;/g, '&');
+        const updatedPocScript = pocScript.replace(/&amp;/g, '&');
         sessionStorage.setItem('pocName', pocName)
         sessionStorage.setItem('Image', base64URL)
-        sessionStorage.setItem('script',pocScript )
+        sessionStorage.setItem('script',updatedPocScript )
+        dispatch(userScript(updatedPocScript))
+        console.log(script,"svs")
+        console.log(updatedPocScript,"vdssv")
+       
 
         router.push('Deploy')
 
@@ -76,7 +76,7 @@ function EnterDetails() {
             <div className='box2'>
                 <div style={{ background: 'white', gap: '20px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', color: 'black' }}>
                     <div style={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
-                        <h4>Please provide details and test the seamless chatbot with the new interface.🤖</h4>
+                        <h4>{script}Please provide details and test the seamless chatbot with the new interface.🤖</h4>
 
                     </div>
                     <div >

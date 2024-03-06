@@ -1,20 +1,32 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import Head from 'next/head';
+import { useEffect, useState, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+
 function Deploy() {
-    // const userScript = sessionStorage.getItem('script')
-    // const [pocScript, setPocScript] = useState(userScript)
     const [pocImage, setPocImage] = useState(null);
+    const [pocName, setPocName] = useState("Druid Demo");
     const script = useSelector(state => state.scriptReducer);
+
+    const [pocScript, setPocScript] = useState(script);
+
+    // const [pocScript,setPocScript]=useState(script)
+
+
     useEffect(() => {
-        // const script = sessionStorage.getItem('script');
         const image = sessionStorage.getItem('Image');
-        console.log(script)
+        const title = sessionStorage.getItem('pocName');
+        const poScript = sessionStorage.getItem('script')
+        setPocName(title);
         setPocImage(image);
-        // if (script && image) {
-        //     setPocScript(script);
-        //     setPocImage(image);
-        // }
+        setPocScript(poScript)
     }, []); // Empty dependency array to run once on component mount
+
+    // useEffect(() => {
+    //     setPocScript(script);
+    // }, [script]); // Update pocScript when script changes
+
+    const memoizedPocScript = useMemo(() => pocScript, [pocScript]);
+    // const pocScript = useMemo(() => script, [script]); // Memoize script value
 
     return (
         <div style={{
@@ -25,7 +37,13 @@ function Deploy() {
             width: '100vw',
             height: '100vh'
         }}>
-         <script defer type="text/javascript" src={script}></script>
+            <Head>
+                <title>{pocName}</title>
+            </Head>
+            <h3> {memoizedPocScript}</h3>
+
+            <script defer type="text/javascript" src={memoizedPocScript}></script>
+
         </div>
     );
 }
