@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import {userScript} from '../Redux/Action/index'
+import {userScript,userPocName,userPocImage} from '../Redux/Action/index'
 import Deploy from './Deploy';
 // Script
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,7 +37,6 @@ function EnterDetails() {
             .then((result) => {
                 selectedFile["base64"] = result;
                 setFile(selectedFile);
-                // console.log(result)
                 setBase64URL(result);
             })
             .catch((err) => {
@@ -56,15 +55,16 @@ function EnterDetails() {
     }
     const onButtonClick = () => {
         const updatedPocScript = pocScript.replace(/&amp;/g, '&');
-        sessionStorage.setItem('pocName', pocName)
-        sessionStorage.setItem('Image', base64URL)
-        sessionStorage.setItem('script',updatedPocScript )
-        dispatch(userScript(updatedPocScript))
-        console.log(script,"svs")
-        console.log(updatedPocScript,"vdssv")
-       
+        // sessionStorage.setItem('pocName', pocName)
+        // sessionStorage.setItem('Image', base64URL)
+        // sessionStorage.setItem('script',updatedPocScript )   
+        setTimeout(() => {
+            dispatch(userPocName(pocName))
+            dispatch(userPocImage(base64URL))
+            dispatch(userScript(updatedPocScript))
+            router.push('Deploy')
+        }, 4000);
 
-        router.push('Deploy')
 
     }
     return (
@@ -76,7 +76,7 @@ function EnterDetails() {
             <div className='box2'>
                 <div style={{ background: 'white', gap: '20px', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', color: 'black' }}>
                     <div style={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
-                        <h4>{script}Please provide details and test the seamless chatbot with the new interface.🤖</h4>
+                        <h4>Please provide details and test the seamless chatbot with the new interface.🤖</h4>
 
                     </div>
                     <div >

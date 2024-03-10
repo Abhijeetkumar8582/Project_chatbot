@@ -4,3 +4,16 @@ export const userScript = (script = '') => {
         payload: script
     }
 }
+export const userPocName = (script = '') => {
+    return {
+        type: "PocName",
+        payload: script
+    }
+}
+
+export const userPocImage = (script = '') => {
+    return {
+        type: "PocImage",
+        payload: script
+    }
+}
